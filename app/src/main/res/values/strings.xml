@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Don\'t Kill My App</string>
+    <string name="something_bad_happened">Что-то пошло не так. Приносим свои извинения, мы скоро всё починим.\n\nНа всякий случай попробуйте обновить страницу.</string>
+
+    <string name="first_in_our_parade">Самая тяжёлая марка для оптимизации!</string>
+    <string name="second_in_our_parade">Почти самая тяжёлая марка для оптимизации!</string>
+    <string name="third_in_our_parade">Заслуженное третье место!</string>
+    <string name="certain_place_in_our_parade">%d место</string>
+    <string name="no_place_determined">Место пока не определено</string>
+    <string name="search_hint">Поиск</string>
+    <string name="manufacturer_info_title">Почему?</string>
+    <string name="manufacturer_info_user_solution">Фикс с пользовательской стороны</string>
+    <string name="manufacturer_info_dev_solution">Фикс со стороны разработчика</string>
+    <string name="all_other_devices">Всё остальное тут</string>
+    <string name="no_solution_found">Увы, пока решение неизвестно :(</string>
+
+</resources>

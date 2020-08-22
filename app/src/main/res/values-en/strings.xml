@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Don\'t Kill My App</string>
+    <string name="something_bad_happened">Oopsie, something went incredibly wrong. We\'re sorry and we intend to fix it up ASAP.\n\nYou can try to refresh the page using PTR gesture.</string>
+    <string name="first_in_our_parade">Hardest manufacturer to optimize so far</string>
+    <string name="second_in_our_parade">Hard to optimize but it\'s still not that bad</string>
+    <string name="third_in_our_parade">Well deserved 3rd place in our rating</string>
+    <string name="certain_place_in_our_parade">Position number %d in our rating</string>
+    <string name="no_place_determined">Position is yet to be determined</string>
+    <string name="search_hint">Search</string>
+    <string name="manufacturer_info_title">Reasoning</string>
+    <string name="manufacturer_info_user_solution">User solution</string>
+    <string name="manufacturer_info_dev_solution">Developer solution</string>
+    <string name="all_other_devices">Everything else rests here</string>
+    <string name="no_solution_found">No solution found, sorry about that :(</string>
+</resources>

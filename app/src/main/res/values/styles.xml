@@ -1,0 +1,28 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="android:textColorPrimary">@color/toolbarTextColor</item>
+        <item name="android:textColorSecondary">@color/toolbarTextColor</item>
+        <item name="android:actionMenuTextColor">@color/toolbarActionMenuTextColor</item>
+        <item name="android:navigationBarColor">@color/navigationBarColor</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:textColorPrimary">@color/toolbarTextColor</item>
+        <item name="popupTheme">@style/PopupTheme</item>
+        <item name="subtitleTextColor">@color/toolbarTextColor</item>
+        <item name="titleTextColor">@color/toolbarTextColor</item>
+    </style>
+
+    <style name="PopupTheme" parent="AppTheme">
+        <item name="android:textColor">@color/toolbarActionMenuTextColor</item>
+    </style>
+
+</resources>

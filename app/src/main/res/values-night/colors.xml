@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">@color/black</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorText">@color/red</color>
+    <color name="colorBackground">@color/black_80</color>
+    <color name="navigationIconColor">@color/red</color>
+    <color name="toolbarActionColor">@color/red</color>
+    <color name="toolbarActionMenuTextColor">@color/red</color>
+    <color name="toolbarBackground">@color/black</color>
+    <color name="toolbarTextColor">@color/red</color>
+    <color name="navigationBarColor">@color/black</color>
+</resources>
