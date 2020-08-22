@@ -1,5 +1,6 @@
 package com.helix.dontkillmyapp.extensions
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.helix.dontkillmyapp.utils.LongOperation
 import kotlinx.coroutines.flow.Flow
@@ -11,3 +12,6 @@ suspend fun <T> Flow<LongOperation<T>>.collect(liveData: MutableLiveData<LongOpe
         liveData.postValue(emittedValue)
     }
 }
+
+val <T> LiveData<T>.requireValue : T
+    get() = value ?: throw IllegalArgumentException("Value is not present but was marked as required")
