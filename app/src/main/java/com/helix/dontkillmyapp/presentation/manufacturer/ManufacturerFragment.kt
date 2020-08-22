@@ -4,24 +4,18 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.text.Html
 import android.view.View
+import android.widget.Toolbar
 import androidx.core.text.HtmlCompat
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.helix.dontkillmyapp.R
 import com.helix.dontkillmyapp.data.model.Manufacturer
 import com.helix.dontkillmyapp.extensions.observe
-import com.helix.dontkillmyapp.presentation.manufacturers.ManufacturerListAdapter
-import com.helix.dontkillmyapp.presentation.manufacturers.ManufacturerListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_manufacturer.textViewManufacturerDevSolution
 import kotlinx.android.synthetic.main.fragment_manufacturer.textViewManufacturerInfo
 import kotlinx.android.synthetic.main.fragment_manufacturer.textViewManufacturerUserSolution
 import kotlinx.android.synthetic.main.fragment_manufacturer.toolbar
-import kotlinx.android.synthetic.main.fragment_manufacturer_list.recyclerViewManufacturerList
-import kotlinx.android.synthetic.main.fragment_manufacturer_list.swipeRefreshLayout
-import kotlinx.android.synthetic.main.fragment_manufacturer_list.viewError
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -45,6 +39,11 @@ class ManufacturerFragment : Fragment(R.layout.fragment_manufacturer) {
 
         toolbar.setNavigationOnClickListener {
             manufacturerViewModel.goBack()
+        }
+        toolbar.inflateMenu(R.menu.menu_manufacturer_share)
+        toolbar.menu.findItem(R.id.action_share).setOnMenuItemClickListener {
+            manufacturerViewModel.shareManufacturer()
+            true
         }
 
         observe(manufacturerViewModel.manufacturerLiveData) {
