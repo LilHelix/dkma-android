@@ -83,3 +83,16 @@ Aapp/src/main/java/com/helix/dontkillmyapp/injection/MiscModule.kt,2\1\21b144ae
 Kapp/src/main/java/com/helix/dontkillmyapp/presentation/theme/ThemeHelper.kt,8\4\84d26dafd05f6ba7cb64e095e063b1f4bbaa06e0
 
 Oapp/src/main/java/com/helix/dontkillmyapp/presentation/theme/ThemeHelperImpl.kt,4\4\44b11d54a7c570cb3fe0512493a1391f6a6cb32f
+>
+app/.gitignore,5\1\51e1c5d383dfaa35e0e7e5873a0a99355a86880f
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+r
+Bapp/src/main/java/com/helix/dontkillmyapp/injection/ShareModule.kt,3\4\344130437e9db9bda385535b02bb043900fc004d
+{
+Kapp/src/main/java/com/helix/dontkillmyapp/presentation/share/ShareHelper.kt,d\3\d3fbe7790545ae03e6808182910a7687e2a560b9
+
+Oapp/src/main/java/com/helix/dontkillmyapp/presentation/share/ShareHelperImpl.kt,1\7\1792b5758348b6d05819e53e36ac49e9e8d60a97

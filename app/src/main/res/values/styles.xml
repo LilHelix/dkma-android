@@ -19,10 +19,15 @@
         <item name="popupTheme">@style/PopupTheme</item>
         <item name="subtitleTextColor">@color/toolbarTextColor</item>
         <item name="titleTextColor">@color/toolbarTextColor</item>
+        <item name="subtitleTextAppearance">@style/SubtitleTextAppearance</item>
     </style>
 
     <style name="PopupTheme" parent="AppTheme">
         <item name="android:textColor">@color/toolbarActionMenuTextColor</item>
+    </style>
+
+    <style name="SubtitleTextAppearance" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">10sp</item>
     </style>
 
 </resources>
