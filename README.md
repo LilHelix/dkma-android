@@ -1,8 +1,9 @@
 # Don't Kill My App
 Custom-made clone of "Don't Kill My App" mobile application, written using cutting-edge everything
 
-We were used to create this app!
-Kotlin, Kotlin Coroutines, Hilt, Material Library, RecyclerView, SwipeRefreshLayout, Retrofit, Gson, OkHttp
+Libraries/frameworks used:
+
+Kotlin, Android SDK, Kotlin Coroutines, Hilt, Material Library, RecyclerView, SwipeRefreshLayout, Retrofit, Gson, OkHttp
 
 # TODO list:
 1. Fix a weird bug with day-night theme being applied on runtime
