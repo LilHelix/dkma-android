@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.helix.dontkillmyapp.data.datasource.ManufacturersSearchableDataSource
 import com.helix.dontkillmyapp.data.model.Manufacturer
 import com.helix.dontkillmyapp.data.usecase.GetManufacturersUseCase
 import com.helix.dontkillmyapp.navigation.CustomRouter
@@ -13,6 +14,7 @@ import com.helix.dontkillmyapp.presentation.theme.Theme
 import com.helix.dontkillmyapp.presentation.theme.ThemeHelper
 import com.helix.dontkillmyapp.utils.Finished
 import com.helix.dontkillmyapp.utils.LongOperation
+import com.helix.dontkillmyapp.utils.OpState
 import com.helix.dontkillmyapp.utils.SearchQuery
 import com.helix.dontkillmyapp.utils.Success
 import com.helix.dontkillmyapp.utils.progressive
@@ -21,23 +23,25 @@ import kotlinx.coroutines.launch
 
 class ManufacturerListViewModel @ViewModelInject constructor(
     private val getManufacturersUseCase: GetManufacturersUseCase,
+    private val manufacturersSearchableDataSource: ManufacturersSearchableDataSource,
     private val router: CustomRouter,
     private val themeHelper: ThemeHelper
 ) : ViewModel() {
 
-    private val manufacturerListMutableLiveData = MutableLiveData<LongOperation<List<Manufacturer>>>()
-    val manufacturerListLiveData : LiveData<LongOperation<List<Manufacturer>>> = manufacturerListMutableLiveData
+    private val manufacturersListMutableLiveData = manufacturersSearchableDataSource.manufacturers
+    val manufacturerListLiveData : LiveData<List<ManufacturerWrapper>> = manufacturersListMutableLiveData
 
-    private val allManufacturersListLiveData = MutableLiveData<List<Manufacturer>>()
+    private val manufacturersUseCaseState = MutableLiveData<OpState>()
+    val manufacturersUseCaseStateLiveData : LiveData<OpState> = manufacturersUseCaseState
 
     fun getManufacturers() {
         viewModelScope.launch {
             progressive {
                 getManufacturersUseCase.execute()
             }.collect {
-                manufacturerListMutableLiveData.postValue(it)
+                manufacturersUseCaseState.postValue(it.state)
                 it.doOnSuccess { manufacturers ->
-                    allManufacturersListLiveData.postValue(manufacturers)
+                    manufacturersSearchableDataSource.setBaseManufacturers(manufacturers)
                 }
             }
         }
@@ -48,15 +52,7 @@ class ManufacturerListViewModel @ViewModelInject constructor(
     }
 
     fun filter(searchQuery: SearchQuery) {
-        val allManufacturers = allManufacturersListLiveData.value ?: return
-
-        val manufacturersToShow = if (searchQuery.isEmpty) {
-            allManufacturers
-        } else {
-            allManufacturers.filter { it.name.startsWith(searchQuery.query, ignoreCase = true) }
-        }
-
-        manufacturerListMutableLiveData.value = Finished(Success(manufacturersToShow))
+        manufacturersSearchableDataSource.onSearchQueryChange(searchQuery)
     }
 
     fun changeTheme(theme: Theme) {

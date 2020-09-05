@@ -1,0 +1,16 @@
+package com.helix.dontkillmyapp.injection
+
+import com.helix.dontkillmyapp.data.datasource.ManufacturersSearchableDataSource
+import com.helix.dontkillmyapp.data.datasource.ManufacturersSearchableDataSourceImpl
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+
+@Module
+@InstallIn(ApplicationComponent::class)
+object DataSourceModule {
+
+    @Provides
+    fun provideDataSourceModule() : ManufacturersSearchableDataSource = ManufacturersSearchableDataSourceImpl()
+}

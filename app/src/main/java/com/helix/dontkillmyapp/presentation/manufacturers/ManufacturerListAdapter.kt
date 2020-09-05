@@ -12,11 +12,11 @@ import javax.inject.Inject
 
 class ManufacturerListAdapter @Inject constructor(
 
-) : ListAdapter<Manufacturer, ManufacturerViewHolder>(
+) : ListAdapter<ManufacturerWrapper, ManufacturerViewHolder>(
     DeviceManufacturerSimilarityChecker.provideItemCallback()
 ) {
 
-    var onClickListener : (adapterPosition: Int, Manufacturer) -> Unit = {_, _ -> }
+    var onClickListener : (adapterPosition: Int, ManufacturerWrapper) -> Unit = {_, _ -> }
 
     private val localOnClickListener : (adapterPosition: Int) -> Unit = {
         val item = getItem(it)
@@ -43,7 +43,7 @@ class ManufacturerViewHolder(
         }
     }
 
-    fun bind(item: Manufacturer) {
-        itemView.textViewManufacturer.text = item.name
+    fun bind(item: ManufacturerWrapper) {
+        itemView.textViewManufacturer.text = item.manufacturer.name
     }
 }

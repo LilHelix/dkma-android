@@ -14,6 +14,7 @@ import com.helix.dontkillmyapp.extensions.observe
 import com.helix.dontkillmyapp.extensions.toast
 import com.helix.dontkillmyapp.presentation.theme.Theme
 import com.helix.dontkillmyapp.presentation.theme.ThemeHelper
+import com.helix.dontkillmyapp.utils.OpState
 import com.helix.dontkillmyapp.utils.setup
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_manufacturer_list.recyclerViewManufacturerList
@@ -46,29 +47,32 @@ class ManufacturerListFragment : Fragment(R.layout.fragment_manufacturer_list) {
             manufacturerListViewModel.changeTheme(it)
         }
 
-        manufacturerListAdapter.onClickListener = { adapterPosition, manufacturer ->
-            manufacturerListViewModel.openManufacturer(manufacturer)
+        manufacturerListAdapter.onClickListener = { adapterPosition, manufWrapper ->
+            manufacturerListViewModel.openManufacturer(manufWrapper.manufacturer)
         }
         swipeRefreshLayout.setOnRefreshListener {
             manufacturerListViewModel.getManufacturers()
         }
 
         observe(manufacturerListViewModel.manufacturerListLiveData) {
-            it.fold(
-                onStarted = {
+            manufacturerListAdapter.submitList(it)
+        }
+
+        observe(manufacturerListViewModel.manufacturersUseCaseStateLiveData) {
+            when (it) {
+                OpState.LOADING -> {
                     swipeRefreshLayout.isRefreshing = true
                     viewError.isGone = true
-                },
-                onSuccess = { manufacturers ->
-                    swipeRefreshLayout.isRefreshing = false
-                    manufacturerListAdapter.submitList(manufacturers)
-                    inflateToolbarWithSearch()
-                },
-                onError = {
+                }
+                OpState.FAILURE -> {
                     swipeRefreshLayout.isRefreshing = false
                     viewError.isVisible = true
                 }
-            )
+                OpState.SUCCESS -> {
+                    swipeRefreshLayout.isRefreshing = false
+                    inflateToolbarWithSearch()
+                }
+            }
         }
     }
 
