@@ -43,7 +43,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="@string/manufacturer_info_title"
+                android:text="@string/vendor_info_title"
                 android:textSize="34sp"
                 android:textStyle="bold" />
 
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="@string/manufacturer_info_user_solution"
+                android:text="@string/vendor_info_user_solution"
                 android:textSize="34sp"
                 android:textStyle="bold" />
 
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="@string/manufacturer_info_dev_solution"
+                android:text="@string/vendor_info_dev_solution"
                 android:textSize="34sp"
                 android:textStyle="bold" />
 

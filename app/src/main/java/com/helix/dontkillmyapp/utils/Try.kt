@@ -6,6 +6,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 
+enum class OpState {
+    LOADING,
+    SUCCESS,
+    FAILURE
+}
+
 // region Try
 suspend fun <T> attempt(block: suspend () -> T): Try<T> {
     return try {
@@ -17,6 +23,8 @@ suspend fun <T> attempt(block: suspend () -> T): Try<T> {
 }
 
 sealed class Try<T> {
+
+    abstract val state: OpState
 
     val isSuccess: Boolean
         get() = this is Success
@@ -38,8 +46,12 @@ sealed class Try<T> {
     }
 }
 
-class Success<T>(val result: T) : Try<T>()
-class Failure<T>(val throwable: Throwable) : Try<T>()
+class Success<T>(val result: T) : Try<T>() {
+    override val state = OpState.SUCCESS
+}
+class Failure<T>(val throwable: Throwable) : Try<T>() {
+    override val state = OpState.FAILURE
+}
 //endregion
 
 // region Operations with progress
@@ -52,6 +64,7 @@ fun <T> progressive(block: suspend () -> Try<T>): Flow<LongOperation<T>> {
 }
 
 sealed class LongOperation<T> {
+    abstract val state: OpState
 
     fun fold(onStarted: () -> Unit, onFinished: (Try<T>) -> Unit) {
         when (this) {
@@ -72,6 +85,10 @@ sealed class LongOperation<T> {
     }
 }
 
-class InProgress<T> : LongOperation<T>()
-class Finished<T>(val result: Try<T>) : LongOperation<T>()
+class InProgress<T> : LongOperation<T>() {
+    override val state = OpState.LOADING
+}
+class Finished<T>(val result: Try<T>) : LongOperation<T>() {
+    override val state = result.state
+}
 //endregion

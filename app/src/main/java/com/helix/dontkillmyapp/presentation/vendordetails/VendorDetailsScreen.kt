@@ -1,4 +1,4 @@
-package com.helix.dontkillmyapp.presentation.manufacturer
+package com.helix.dontkillmyapp.presentation.vendordetails
 
 import androidx.transition.Transition
 import android.view.Gravity
@@ -7,11 +7,11 @@ import androidx.fragment.app.Fragment
 import androidx.transition.Fade
 import androidx.transition.Slide
 import androidx.transition.TransitionSet
-import com.helix.dontkillmyapp.data.model.Manufacturer
+import com.helix.dontkillmyapp.data.model.Vendor
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
-data class ManufacturerScreen(
-    val manufacturer: Manufacturer,
+data class VendorDetailsScreen(
+    val vendor: Vendor,
     val openTransition: Transition = ManufacturerTransition(TransitionMode.OPEN),
     val closeTransition: Transition = ManufacturerTransition(TransitionMode.CLOSE)
 ) : SupportAppScreen() {
@@ -21,9 +21,9 @@ data class ManufacturerScreen(
     }
 
     override fun getFragment(): Fragment? {
-        return ManufacturerFragment().apply {
+        return VendorDetailsFragment().apply {
             arguments = bundleOf(
-                KEY_MANUFACTURER to manufacturer
+                KEY_MANUFACTURER to vendor
             )
             enterTransition = openTransition
             exitTransition = closeTransition

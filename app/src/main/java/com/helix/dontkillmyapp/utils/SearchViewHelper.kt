@@ -9,6 +9,10 @@ import com.helix.dontkillmyapp.extensions.orEmpty
 data class SearchQuery(val query: CharSequence) {
     val isEmpty: Boolean
         get() = query.isEmpty()
+
+    object Queries {
+        val EMPTY = SearchQuery("")
+    }
 }
 
 fun SearchView.setup(listener: (SearchQuery) -> Unit) {

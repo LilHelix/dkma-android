@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.helix.dontkillmyapp.navigation.CustomAppNavigator
 import com.helix.dontkillmyapp.navigation.CustomRouter
-import com.helix.dontkillmyapp.presentation.manufacturers.ManufacturerListScreen
+import com.helix.dontkillmyapp.presentation.vendors.VendorListScreen
 import dagger.hilt.android.AndroidEntryPoint
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
@@ -22,7 +22,7 @@ class HostActivity : AppCompatActivity(R.layout.activity_host) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        router.newRootScreen(ManufacturerListScreen)
+        router.newRootScreen(VendorListScreen)
     }
 
     override fun onResume() {

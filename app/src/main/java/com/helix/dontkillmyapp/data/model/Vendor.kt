@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Manufacturer(
+data class Vendor(
     val name: String,
     val manufacturer: List<String>,
     val url: String,
