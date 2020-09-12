@@ -1,52 +1,52 @@
-package com.helix.dontkillmyapp.presentation.manufacturer
+package com.helix.dontkillmyapp.presentation.vendordetails
 
 import android.content.res.Resources
 import android.os.Bundle
 import android.text.Html
 import android.view.View
-import android.widget.Toolbar
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.helix.dontkillmyapp.R
-import com.helix.dontkillmyapp.data.model.Manufacturer
+import com.helix.dontkillmyapp.data.model.Vendor
 import com.helix.dontkillmyapp.extensions.observe
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_manufacturer.textViewManufacturerDevSolution
-import kotlinx.android.synthetic.main.fragment_manufacturer.textViewManufacturerInfo
-import kotlinx.android.synthetic.main.fragment_manufacturer.textViewManufacturerUserSolution
-import kotlinx.android.synthetic.main.fragment_manufacturer.toolbar
+import kotlinx.android.synthetic.main.fragment_vendor_details.textViewManufacturerDevSolution
+import kotlinx.android.synthetic.main.fragment_vendor_details.textViewManufacturerInfo
+import kotlinx.android.synthetic.main.fragment_vendor_details.textViewManufacturerUserSolution
+import kotlinx.android.synthetic.main.fragment_vendor_details.toolbar
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ManufacturerFragment : Fragment(R.layout.fragment_manufacturer) {
+class VendorDetailsFragment : Fragment(R.layout.fragment_vendor_details) {
 
     @Inject lateinit var imageGetter: Html.ImageGetter
 
-    private val manufacturerViewModel: ManufacturerViewModel by viewModels()
+    private val vendorDetailsViewModel: VendorDetailsViewModel by viewModels()
 
-    private val manufacturer: Manufacturer
-        get() = requireArguments().getParcelable(ManufacturerScreen.KEY_MANUFACTURER)
+    private val vendor: Vendor by lazy {
+        requireArguments().getParcelable(VendorDetailsScreen.KEY_MANUFACTURER)
             ?: throw IllegalArgumentException("You need this argument to launch this screen")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        manufacturerViewModel.showManufacturer(manufacturer)
+        vendorDetailsViewModel.showManufacturer(vendor)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         toolbar.setNavigationOnClickListener {
-            manufacturerViewModel.goBack()
+            vendorDetailsViewModel.goBack()
         }
-        toolbar.inflateMenu(R.menu.menu_manufacturer_share)
+        toolbar.inflateMenu(R.menu.menu_vendor_share)
         toolbar.menu.findItem(R.id.action_share).setOnMenuItemClickListener {
-            manufacturerViewModel.shareManufacturer()
+            vendorDetailsViewModel.shareManufacturer()
             true
         }
 
-        observe(manufacturerViewModel.manufacturerLiveData) {
+        observe(vendorDetailsViewModel.vendorLiveData) {
             toolbar.title = it.name
             toolbar.subtitle = resources.getPlaceString(it.position)
 

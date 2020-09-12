@@ -3,7 +3,7 @@ package com.helix.dontkillmyapp.presentation.share
 import android.content.Context
 import android.content.Intent
 import com.helix.dontkillmyapp.R
-import com.helix.dontkillmyapp.data.model.Manufacturer
+import com.helix.dontkillmyapp.data.model.Vendor
 import com.helix.dontkillmyapp.data.remote.ENDPOINT
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped
@@ -20,8 +20,8 @@ class ShareHelperImpl @Inject constructor(
 
     private val shareIntentTag = context.getString(R.string.action_share)
 
-    override fun shareManufacturer(manufacturer: Manufacturer) {
-        val message = "$ENDPOINT/${manufacturer.url}"
+    override fun shareVendor(vendor: Vendor) {
+        val message = "$ENDPOINT${vendor.url}"
         Intent(Intent.ACTION_SEND).apply {
             type = TEXT_TYPE
             putExtra(Intent.EXTRA_TEXT, message)

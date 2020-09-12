@@ -1,64 +1,61 @@
-package com.helix.dontkillmyapp.presentation.manufacturers
+package com.helix.dontkillmyapp.presentation.vendors
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.helix.dontkillmyapp.R
 import com.helix.dontkillmyapp.extensions.observe
-import com.helix.dontkillmyapp.extensions.toast
 import com.helix.dontkillmyapp.presentation.theme.Theme
-import com.helix.dontkillmyapp.presentation.theme.ThemeHelper
 import com.helix.dontkillmyapp.utils.OpState
 import com.helix.dontkillmyapp.utils.setup
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_manufacturer_list.recyclerViewManufacturerList
-import kotlinx.android.synthetic.main.fragment_manufacturer_list.swipeRefreshLayout
-import kotlinx.android.synthetic.main.fragment_manufacturer_list.toolbar
-import kotlinx.android.synthetic.main.fragment_manufacturer_list.view.toolbar
-import kotlinx.android.synthetic.main.fragment_manufacturer_list.viewError
+import kotlinx.android.synthetic.main.fragment_vendor_list.recyclerViewManufacturerList
+import kotlinx.android.synthetic.main.fragment_vendor_list.swipeRefreshLayout
+import kotlinx.android.synthetic.main.fragment_vendor_list.toolbar
+import kotlinx.android.synthetic.main.fragment_vendor_list.view.toolbar
+import kotlinx.android.synthetic.main.fragment_vendor_list.viewError
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ManufacturerListFragment : Fragment(R.layout.fragment_manufacturer_list) {
+class VendorListFragment : Fragment(R.layout.fragment_vendor_list) {
 
-    @Inject lateinit var manufacturerListAdapter: ManufacturerListAdapter
+    @Inject lateinit var vendorListAdapter: VendorListAdapter
 
-    private val manufacturerListViewModel : ManufacturerListViewModel by viewModels()
+    private val vendorListViewModel : VendorListViewModel by viewModels()
 
     private var searchView: SearchView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        manufacturerListViewModel.getManufacturers()
+        vendorListViewModel.getManufacturers()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerViewManufacturerList.adapter = manufacturerListAdapter
+        recyclerViewManufacturerList.adapter = vendorListAdapter
 
         toolbar.inflateMenu(R.menu.menu_theme)
         toolbar.setupThemeChanger {
-            manufacturerListViewModel.changeTheme(it)
+            vendorListViewModel.changeTheme(it)
         }
 
-        manufacturerListAdapter.onClickListener = { adapterPosition, manufWrapper ->
-            manufacturerListViewModel.openManufacturer(manufWrapper.manufacturer)
+        vendorListAdapter.onClickListener = { adapterPosition, manufWrapper ->
+            vendorListViewModel.openManufacturer(manufWrapper.vendor)
         }
         swipeRefreshLayout.setOnRefreshListener {
-            manufacturerListViewModel.getManufacturers()
+            vendorListViewModel.getManufacturers()
         }
 
-        observe(manufacturerListViewModel.manufacturerListLiveData) {
-            manufacturerListAdapter.submitList(it)
+        observe(vendorListViewModel.vendorListLiveData) {
+            vendorListAdapter.submitList(it)
         }
 
-        observe(manufacturerListViewModel.manufacturersUseCaseStateLiveData) {
+        observe(vendorListViewModel.getVendorsUseCaseStateLiveData) {
             when (it) {
                 OpState.LOADING -> {
                     swipeRefreshLayout.isRefreshing = true
@@ -89,7 +86,7 @@ class ManufacturerListFragment : Fragment(R.layout.fragment_manufacturer_list) {
         toolbar.inflateMenu(R.menu.menu_search)
         val newSearchView = (toolbar.menu.findItem(R.id.action_search).actionView as SearchView)
         newSearchView.setup {
-            manufacturerListViewModel.filter(it)
+            vendorListViewModel.filter(it)
         }
         searchView = newSearchView
     }
