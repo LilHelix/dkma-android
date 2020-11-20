@@ -3,6 +3,21 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'kotlin-kapt'
+apply plugin: "com.betomorrow.appcenter"
+
+appcenter {
+    apiToken = "b1ce25fcbe403655b7da2ae13751e71fbb7312ab" // Api Token from AppCenter user profile
+    ownerName = "HelloHelix"                          // Owner Name from AppCenter Application (see following note)
+    distributionGroups = ["Alpha"]               // Name of the AppCenter Distribution Group
+    releaseNotes = file("../changelog.md")      // Can be a file or text
+    notifyTesters = true                        // Send mail to testers
+    apps {                                      // Here we manage 3 AppCenter applications : alpha, beta and prod
+        alpha {
+            dimension = "environment"
+            appName = "Dont-Kill-My-App"      // The AppCenter application name
+        }
+    }
+}
 
 android {
     compileSdkVersion 29
@@ -16,6 +31,15 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    flavorDimensions "environment"
+    productFlavors {
+        alpha {
+            dimension "environment"
+            applicationIdSuffix ".alpha"
+            versionNameSuffix "-alpha"
+        }
     }
 
     buildTypes {

@@ -10,6 +10,33 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Set permission for gradlew
           command: sudo chmod +x ./gradlew
       - run:
+          name: Build the app
           command: ./gradlew build
+
+  deploy:
+    executor: android/android
+    steps:
+        - checkout
+        - run:
+            name: Set permission for gradlew
+            command: sudo chmod +x ./gradlew
+        - run:
+            name: Assemble and deploy to AppCenter
+            command: ./gradlew appCenterAssembleAndUploadAlphaRelease
+
+
+workflows:
+  version: 2
+  wfMaster:
+       triggers:
+         - schedule:
+             filters:
+               branches:
+                 only:
+                   - master
+       jobs:
+         - deploy
+
