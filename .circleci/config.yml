@@ -26,17 +26,3 @@ jobs:
         - run:
             name: Assemble and deploy to AppCenter
             command: ./gradlew appCenterAssembleAndUploadAlphaRelease
-
-
-workflows:
-  version: 2
-  wfMaster:
-       triggers:
-         - schedule:
-             filters:
-               branches:
-                 only:
-                   - master
-       jobs:
-         - deploy
-
