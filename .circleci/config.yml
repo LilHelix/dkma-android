@@ -26,3 +26,11 @@ jobs:
         - run:
             name: Assemble and deploy to AppCenter
             command: ./gradlew appCenterAssembleAndUploadAlphaRelease
+
+workflows:
+    build_and_deploy:
+        jobs:
+              - build
+              - deploy:
+                  requires:
+                    - build
